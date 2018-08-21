@@ -1,0 +1,467 @@
+//PT-Dash_V1	
+/*
+	I think that you're getting pretty darn close.  One thing that I think you need to look into is 
+	Object Oriented Programming Concepts.  Basically the various data structures.  Objects in particular / classes
+*/
+	
+//Charts and Controls
+	var ageFilter = Charts.newNumberRangeFilter()
+      .setFilterColumnLabel("Age")
+      .build();
+
+  var genderFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("Gender")
+      .build();
+
+  var pieChart = Charts.newPieChart()
+      .setDataViewDefinition(Charts.newDataViewDefinition()
+                            .setColumns([0, 3]))
+      .build();
+
+  var tableChart = Charts.newTableChart()
+      .build();
+	  
+//Create and Bin Dashboard
+var dashboard = Charts.newDashboardPanel()
+      .setDataTable(data)
+      .bind([ageFilter, genderFilter], [pieChart, tableChart])
+      .build();
+	  
+//Create Application and Add Dashboard	  
+var uiApp = UiApp.createApplication();
+
+  dashboard.add(uiApp.createVerticalPanel()
+                .add(uiApp.createHorizontalPanel()
+                    .add(ageFilter).add(genderFilter)
+                    .setSpacing(70))
+                .add(uiApp.createHorizontalPanel()
+                    .add(pieChart).add(tableChart)
+                    .setSpacing(10)));
+
+  uiApp.add(dashboard);
+  return uiApp;
+}
+//PT-Dash_V2
+function logPTResponses() {
+  var sheet = SpreadsheetApp.openById("109JOqbsONL3vXMBUxgOllND3MFUd8pThYIYou1xMgvg");
+  //var sheet = SpreadsheetApp.getActiveSpreadsheet();
+  sheet.setActiveSheet(sheet.getSheetByName('Responses'));
+  //var data = sheet.getDataRange().getValues();
+  var data = sheet.getSheetByName("Responses").getDataRange().getValues();
+    //var data = sheet.getSheetByName("Responses").getSheetValues(sheet.getDataRange());
+  Logger.log(data);
+  for (var i = 1; i < data.length; i++) 
+    Logger.log('Timestamp: ' + data[i][0]);
+    Logger.log('ENTER - Client ID#: ' + data[i][1]);
+    Logger.log('ENTER - Appointment Date: ' + data[i][2]);
+    Logger.log('SELECT - ActivCore Location: ' + data[i][3]);
+    Logger.log('ENTER - Your PT#: ' + data[i][4]);
+    Logger.log('What is your pain level? [start of session]: ' + data[i][5]);
+    Logger.log('How many painful movements did the client experience during the session?: ' + data[i][6]);
+    Logger.log('How many dysfunctional movements did the client experience during the session?: ' + data[i][7]);
+    Logger.log('How many kettle bell squats did the clients perform during the session?: ' + data[i][8]);
+    Logger.log('What is your pain level? [end of session]: ' + data[i][9]);
+
+// Charts and Controls  
+  
+  var dateFilter = Charts.newNumberRangeFilter()
+      .setFilterColumnLabel("ENTER - Appointment Date")
+      .build();
+
+  var clientFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Client ID#")
+      .build();
+  
+   var ptFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Your PT#")
+      .build();
+  
+  var locationFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("SELECT - ActivCore Location")
+      .build();
+
+  var pieChart = Charts.newPieChart()
+      .setDataViewDefinition(Charts.newDataViewDefinition()
+                            .setColumns([1, 9]))
+      .build();
+
+  var tableChart = Charts.newTableChart()
+      .build();
+
+//Create and Bind Dashboard together
+
+var dashboard = Charts.newDashboardPanel()
+      .setDataTable(data)
+      .bind([dateFilter, ptFilter], [pieChart, tableChart])
+      .build();
+
+//Create Application and Add Dashboard
+
+ var uiApp = UiApp.createApplication();
+
+  dashboard.add(uiApp.createVerticalPanel()
+                .add(uiApp.createHorizontalPanel()
+                    .add(dateFilter).add(ptFilter)
+                    .setSpacing(70))
+                .add(uiApp.createHorizontalPanel()
+                    .add(pieChart).add(tableChart)
+                    .setSpacing(10)));
+
+  uiApp.add(dashboard);
+  return uiApp;
+}  
+//PT-Dash_V3
+function myFunction() {
+  var mySheet = SpreadsheetApp.openById("109JOqbsONL3vXMBUxgOllND3MFUd8pThYIYou1xMgvg");
+  var data = mySheet.getDataRange().getValues();
+  for(var i = 0; i < data.length; i++){
+	Logger.log('Timestamp: ' + data[i][0]);
+    Logger.log('ENTER - Client ID#: ' + data[i][1]);
+    Logger.log('ENTER - Appointment Date: ' + data[i][2]);
+    Logger.log('SELECT - ActivCore Location: ' + data[i][3]);
+    Logger.log('ENTER - Your PT#: ' + data[i][4]);
+    Logger.log('What is your pain level? [start of session]: ' + data[i][5]);
+    Logger.log('How many painful movements did the client experience during the session?: ' + data[i][6]);
+    Logger.log('How many dysfunctional movements did the client experience during the session?: ' + data[i][7]);
+    Logger.log('How many kettle bell squats did the clients perform during the session?: ' + data[i][8]);
+    Logger.log('What is your pain level? [end of session]: ' + data[i][9]);
+
+// Charts and Controls  
+  
+  var dateFilter = Charts.newNumberRangeFilter()
+      .setFilterColumnLabel("ENTER - Appointment Date")
+      .build();
+
+ /*
+  var clientFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Client ID#")
+      .build();
+*/  
+  
+   var ptFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Your PT#")
+      .build();
+  
+  /*  
+  var locationFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("SELECT - ActivCore Location")
+      .build();
+*/
+
+  var pieChart = Charts.newPieChart()
+      .setDataViewDefinition(Charts.newDataViewDefinition()
+                            .setColumns([1, 9]))
+      .build();
+
+  var tableChart = Charts.newTableChart()
+      .build();
+
+//Create and Bind Dashboard together
+
+var dashboard = Charts.newDashboardPanel()
+      .setDataTable(data)
+      .bind([dateFilter, ptFilter], [pieChart, tableChart])
+      .build();
+
+//Create Application and Add Dashboard
+
+ var uiApp = UiApp.createApplication().setTitle("My Dashboard");
+
+  dashboard.add(uiApp.createVerticalPanel()
+                .add(uiApp.createHorizontalPanel()
+                    .add(dateFilter).add(ptFilter)
+                    .setSpacing(70))
+                .add(uiApp.createHorizontalPanel()
+                    .add(pieChart).add(tableChart)
+                    .setSpacing(10)));
+
+  uiApp.add(dashboard);
+  return uiApp;
+  }
+}
+//PT-Dash_V4
+*
+	Trying to incorporate a nested for loop
+		Attempting to over come overloading constructor error
+*/		
+function myFunction() {
+  var mySheet = SpreadsheetApp.openById("109JOqbsONL3vXMBUxgOllND3MFUd8pThYIYou1xMgvg");
+  var data = mySheet.getDataRange().getValues();
+  for(var i = 0; i < data.length; i++){
+    for(var x = 0; a < data[i].length; x++) {
+      newData.push(data[i][x]);
+	Logger.log('Timestamp: ' + data[i][0]);
+    Logger.log('ENTER - Client ID#: ' + data[i][1]);
+    Logger.log('ENTER - Appointment Date: ' + data[i][2]);
+    Logger.log('SELECT - ActivCore Location: ' + data[i][3]);
+    Logger.log('ENTER - Your PT#: ' + data[i][4]);
+    Logger.log('What is your pain level? [start of session]: ' + data[i][5]);
+    Logger.log('How many painful movements did the client experience during the session?: ' + data[i][6]);
+    Logger.log('How many dysfunctional movements did the client experience during the session?: ' + data[i][7]);
+    Logger.log('How many kettle bell squats did the clients perform during the session?: ' + data[i][8]);
+    Logger.log('What is your pain level? [end of session]: ' + data[i][9]);
+
+// Charts and Controls  
+  
+  var dateFilter = Charts.newNumberRangeFilter()
+      .setFilterColumnLabel("ENTER - Appointment Date")
+      .build();
+
+/*
+  var clientFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Client ID#")
+      .build();
+*/  
+  
+   var ptFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Your PT#")
+      .build();
+  
+/*  
+  var locationFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("SELECT - ActivCore Location")
+      .build();
+*/
+
+  var pieChart = Charts.newPieChart()
+      .setDataViewDefinition(Charts.newDataViewDefinition()
+                            .setColumns([1, 9]))
+      .build();
+
+  var tableChart = Charts.newTableChart()
+      .build();
+
+//Create and Bind Dashboard together
+
+var dashboard = Charts.newDashboardPanel()
+      .setDataTable(data)
+      .bind([dateFilter, ptFilter], [pieChart, tableChart])
+      .build();
+
+//Create Application and Add Dashboard
+
+ var uiApp = UiApp.createApplication().setTitle("My Dashboard");
+
+  dashboard.add(uiApp.createVerticalPanel()
+                .add(uiApp.createHorizontalPanel()
+                    .add(dateFilter).add(ptFilter)
+                    .setSpacing(70))
+                .add(uiApp.createHorizontalPanel()
+                    .add(pieChart).add(tableChart)
+                    .setSpacing(10)));
+
+  uiApp.add(dashboard);
+  return uiApp;
+    }
+  }
+}
+//PT-Dash_V4-1
+  var data = mySheet.getDataRange().getValues();
+  for(var i = 0; i < data.length; i++){
+   /* f[i] = var
+    for(var x = 0; x < data[i].length; x++) {
+      newData.push(data[i][x]);
+	  */
+	Logger.log('Timestamp: ' + data[i][0]);
+    Logger.log('ENTER - Client ID#: ' + data[i][1]);
+    Logger.log('ENTER - Appointment Date: ' + data[i][2]);
+    Logger.log('SELECT - ActivCore Location: ' + data[i][3]);
+    Logger.log('ENTER - Your PT#: ' + data[i][4]);
+    Logger.log('What is your pain level? [start of session]: ' + data[i][5]);
+    Logger.log('How many painful movements did the client experience during the session?: ' + data[i][6]);
+    Logger.log('How many dysfunctional movements did the client experience during the session?: ' + data[i][7]);
+    Logger.log('How many kettle bell squats did the clients perform during the session?: ' + data[i][8]);
+    Logger.log('What is your pain level? [end of session]: ' + data[i][9]);
+
+// Charts and Controls  
+  
+  var dateFilter = Charts.newNumberRangeFilter()
+      .setFilterColumnLabel("ENTER - Appointment Date")
+      .build();
+
+/*
+  var clientFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Client ID#")
+      .build();
+*/  
+  
+   var ptFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Your PT#")
+      .build();
+  
+ /*  
+  var locationFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("SELECT - ActivCore Location")
+      .build();
+*/
+
+  var pieChart = Charts.newPieChart()
+      .setDataViewDefinition(Charts.newDataViewDefinition()
+                            .setColumns([1, 9]))
+      .build();
+
+  var tableChart = Charts.newTableChart()
+      .build();
+
+//Create and Bind Dashboard together
+
+var dashboard = Charts.newDashboardPanel()
+      .setDataTable(data)
+      .bind([dateFilter, ptFilter], [pieChart, tableChart])
+      .build();
+
+//Create Application and Add Dashboard
+
+ var uiApp = UiApp.createApplication().setTitle("My Dashboard");
+
+  dashboard.add(uiApp.createVerticalPanel()
+                .add(uiApp.createHorizontalPanel()
+                    .add(dateFilter).add(ptFilter)
+                    .setSpacing(70))
+                .add(uiApp.createHorizontalPanel()
+                    .add(pieChart).add(tableChart)
+                    .setSpacing(10)));
+
+  uiApp.add(dashboard);
+  return uiApp;
+    //}
+  }
+}
+//PT-Dash_V5
+function myFunction() {
+  var mySheet = SpreadsheetApp.openById("109JOqbsONL3vXMBUxgOllND3MFUd8pThYIYou1xMgvg");
+  var data = mySheet.getDataRange().getValues();
+  for(var i = 0; i < data.length; i++){
+	Logger.log('Timestamp: ' + data[i][0]);
+    Logger.log('ENTER - Client ID#: ' + data[i][1]);
+    Logger.log('ENTER - Appointment Date: ' + data[i][2]);
+    Logger.log('SELECT - ActivCore Location: ' + data[i][3]);
+    Logger.log('ENTER - Your PT#: ' + data[i][4]);
+    Logger.log('What is your pain level? [start of session]: ' + data[i][5]);
+    Logger.log('How many painful movements did the client experience during the session?: ' + data[i][6]);
+    Logger.log('How many dysfunctional movements did the client experience during the session?: ' + data[i][7]);
+    Logger.log('How many kettle bell squats did the clients perform during the session?: ' + data[i][8]);
+    Logger.log('What is your pain level? [end of session]: ' + data[i][9]);
+
+// Charts and Controls  
+  
+  var dateFilter = Charts.newNumberRangeFilter()
+      .setFilterColumnLabel("ENTER - Appointment Date")
+      .build();
+
+/*
+  var clientFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Client ID#")
+      .build();
+*/  
+  
+   var ptFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Your PT#")
+      .build();
+  
+/*  
+  var locationFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("SELECT - ActivCore Location")
+      .build();
+*/
+	  
+  var pieChart = Charts.newPieChart()
+      .setDataViewDefinition(Charts.newDataViewDefinition()
+                            .setColumns([1, 9]))
+      .build();
+
+  var tableChart = Charts.newTableChart()
+      .build();
+
+//Create and Bind Dashboard together
+
+var dashboard = Charts.newDashboardPanel()
+      .setDataTable(data)
+      .bind([dateFilter, ptFilter], [pieChart, tableChart])
+      .build();
+
+//Create Application and Add Dashboard
+
+ var uiApp = UiApp.createApplication().setTitle("My Dashboard");
+
+  dashboard.add(uiApp.createVerticalPanel()
+                .add(uiApp.createHorizontalPanel()
+                    .add(dateFilter).add(ptFilter)
+                    .setSpacing(70))
+                .add(uiApp.createHorizontalPanel()
+                    .add(pieChart).add(tableChart)
+                    .setSpacing(10)));
+
+  uiApp.add(dashboard);
+  return uiApp;
+  }
+}
+//PT-Dash_V6
+function myFunction() {
+  var mySheet = SpreadsheetApp.openById("109JOqbsONL3vXMBUxgOllND3MFUd8pThYIYou1xMgvg");
+  var data = mySheet.getDataRange().getValues();
+  for(var i = 0; i < data.length; i++){
+	Logger.log('Timestamp: ' + data[i][0]);
+    Logger.log('ENTER - Client ID#: ' + data[i][1]);
+    Logger.log('ENTER - Appointment Date: ' + data[i][2]);
+    Logger.log('SELECT - ActivCore Location: ' + data[i][3]);
+    Logger.log('ENTER - Your PT#: ' + data[i][4]);
+    Logger.log('What is your pain level? [start of session]: ' + data[i][5]);
+    Logger.log('How many painful movements did the client experience during the session?: ' + data[i][6]);
+    Logger.log('How many dysfunctional movements did the client experience during the session?: ' + data[i][7]);
+    Logger.log('How many kettle bell squats did the clients perform during the session?: ' + data[i][8]);
+    Logger.log('What is your pain level? [end of session]: ' + data[i][9]);
+
+// Charts and Controls  
+  
+  var dateFilter = Charts.newNumberRangeFilter()
+      .setFilterColumnLabel("ENTER - Appointment Date")
+      .build();
+
+/*
+  var clientFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Client ID#")
+      .build();
+*/  
+  
+   var ptFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("ENTER - Your PT#")
+      .build();
+  
+/*  
+  var locationFilter = Charts.newCategoryFilter()
+      .setFilterColumnLabel("SELECT - ActivCore Location")
+      .build();
+*/
+	  
+  var pieChart = Charts.newPieChart()
+      .setDataViewDefinition(Charts.newDataViewDefinition()
+                            .setColumns([1, 9]))
+      .build();
+
+  var tableChart = Charts.newTableChart()
+      .build();
+
+//Create and Bind Dashboard together
+
+var dashboard = Charts.newDashboardPanel()
+      .setDataTable(data)
+      .bind([dateFilter, ptFilter], [pieChart, tableChart])
+      .build();
+
+//Create Application and Add Dashboard
+
+ var uiApp = UiApp.createApplication().setTitle("My Dashboard");
+
+  dashboard.add(uiApp.createVerticalPanel()
+                .add(uiApp.createHorizontalPanel()
+                    .add(dateFilter).add(ptFilter)
+                    .setSpacing(70))
+                .add(uiApp.createHorizontalPanel()
+                    .add(pieChart).add(tableChart)
+                    .setSpacing(10)));
+
+  uiApp.add(dashboard);
+  return uiApp;
+  }
+}
